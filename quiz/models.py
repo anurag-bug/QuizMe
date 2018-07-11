@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
-mychoice=(('A','A'),('B','B'),('C','C'),('D','D'))
+mychoice=(('A','(A)'),('B','(B)'),('C','(C)'),('D','(D)'))
 class QuizDetails(models.Model):
     user = models.ForeignKey(User, unique=False)
     question = models.TextField(max_length=100, null=False)

@@ -2,20 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Submit Response</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
-   {{ question }}
+<div class="container">
+<h2>   {{ question }} </h2>
+
 <form method="post">
     {% csrf_token %}
-    Roll No.: {{ form.rollNo }}
-    <div>
-        {{ form.response.0 }}     {{ optionA }}<br>
-        {{ form.response.1 }}     {{ optionB }}<br>
-        {{ form.response.2 }}     {{ optionC }}<br>
-        {{ form.response.3 }}     {{ optionD }}<br>
+
+    <div class="container">
+        <h4>{{ form.response.0 }}     {{ optionA }}</h4>
+        <h4>{{ form.response.1 }}     {{ optionB }}</h4>
+        <h4>{{ form.response.2 }}     {{ optionC }}</h4>
+        <h4>{{ form.response.3 }}     {{ optionD }}</h4>
     </div>
-    <button type="submit">Submit</button>
+
+    <div class="form-group"><strong>Roll No:{{ form.rollNo }}<br></div></strong>
+    <button type="submit" class="btn btn-warning">Submit</button>
 </form>
+</div>
 </body>
 </html>
