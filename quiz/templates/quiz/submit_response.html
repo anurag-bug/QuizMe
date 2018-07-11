@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+   {{ question }}
+<form method="post">
+    {% csrf_token %}
+    Roll No.: {{ form.rollNo }}
+    <div>
+        {{ form.response.0 }}     {{ optionA }}<br>
+        {{ form.response.1 }}     {{ optionB }}<br>
+        {{ form.response.2 }}     {{ optionC }}<br>
+        {{ form.response.3 }}     {{ optionD }}<br>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Response</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+    function Get()
+    {
+        var Httpreq = new XMLHttpRequest(); // a new request
+        Httpreq.open("GET","{% url 'quiz:api_response' id=quiz_id %}",false);
+        Httpreq.send(null);
+        return Httpreq.responseText;
+    }
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+// Draw the chart and set the chart values
+    function drawChart()
+    {
+          var response_obj = JSON.parse(Get());
+          console.log("this is the author name: "+response_obj.A);
+          var data = google.visualization.arrayToDataTable([
+          ['Option', 'response'],
+          ['A', response_obj.A],
+          ['B', response_obj.B],
+          ['C', response_obj.C],
+          ['D',response_obj.D],
+]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'Response', 'width':400, 'height':300};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+  setTimeout(function(){
+    drawChart();
+},10000);
+}
+</script>
+</head>
+<body>
+<div class="container">
+    <h2>{{ quizObject.question }}<br></h2>
+    <div class="container">
+    <h4><strong>A.    </strong>{{ quizObject.optionA }}<br></h4>
+    <h4><strong>B.     </strong> {{ quizObject.optionB }}<br></h4>
+    <h4><strong>C.     </strong>{{ quizObject.optionC }}<br></h4>
+    <h4><strong>D.     </strong>{{ quizObject.optionD }}<br></h4>
+    </div>
+     <h4><strong>Correct Answer</strong>{{ quizObject.correctOption }}</h4>
+
+
+<div id="piechart"></div>
+    </div>
+</body>
+</html>
