@@ -2,13 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Meddon">
+    <title>Quizy | Login</title>
 </head>
 <body>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
+{% load widget_tweaks %}
+<div class="container">
+<div style="font-family: 'Meddon', serif;font-size: 60px;margin-bottom: 40px;margin-top: 20px">Quizy</div>
+
+<div class="container">
+<div class="row">
+  <div class="col-sm-4">
+        <form method="post" >
+  {% csrf_token %}
+  {% for hidden_field in form.hidden_fields %}
+    {{ hidden_field }}
+  {% endfor %}
+
+  {% for field in form.visible_fields %}
+    <div class="form-group">
+      {{ field.label_tag }}
+      {% render_field field class="form-control" placeholder=field.help_text %}
+      {% if field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text }}</small>
+      {% endif %}
+{% for error in field.error %}
+          <span class="help-block">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+  {% endfor %}
+
+  <button type="submit" class="btn btn-success">Log In</button>
 </form>
+     </div>
+</div>
+<div style="margin-top: 100px;">
+<strong>Don't have an account ?</strong>
+<a href="/quiz/signup/" class="btn btn-warning">Sign up</a>
+</div>
+</div>
 </body>
 </html>

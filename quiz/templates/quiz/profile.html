@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Meddon">
+    <title>Quizy | Profile</title>
+</head>
+    <body>
+
+<div class="container">
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+<div style="font-family: 'Meddon', serif;font-size: 30px;margin-bottom: 40px;margin-top: 20px">Quizy</div>
+    <h3>Welcome back! {{ request.user }}</h3>
+        <a href="/quiz/create/" class="btn btn-success">Create New Quiz</a>
+    <h3>Quizzes Created by you:</h3>
+    <div class="row">
+  <div class="col-sm-6">
+<ol type="A">
+    {% for quiz in quizObjects %}
+
+        <div class="container">
+
+
+
+        <a href="{% url 'quiz:show_response' id=quiz.id %}" class="btn btn-link"><h4> <li>{{quiz.question}}</li></h4></a><br>
+        <a href="{% url 'quiz:record_response' quiz_id=quiz.id %}">Url to submit response</a>
+        </div>
+
+        {% endfor %}
+</ol>
+
+
+</div>
+</div>
+</body>
+
+</html>

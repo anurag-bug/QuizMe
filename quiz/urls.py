@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^signup/$',views.signup),
     url(r'^response/(?P<quiz_id>\d+)/$',views.recordResponse,name="record_response"),
     url(r'^create/$',views.createQuiz),
+    url(r'^profile/$',views.profile),
 
 ]

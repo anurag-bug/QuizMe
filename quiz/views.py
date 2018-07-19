@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect,HttpResponse
 from django.http import JsonResponse
 from quiz.forms import *
 from quiz.models import *
+from django.contrib import messages
+from django.urls import reverse
 def signup(request):
 
     if request.method =='POST':
@@ -25,7 +27,11 @@ def apiResponse(request,id):
     return JsonResponse(mydict)
 def showResponse(request,id):
     quizInstance=QuizDetails.objects.get(pk=id)
-    args={'quiz_id':id,'quizObject':quizInstance}
+    countA = len(list((ResultLive.objects.filter(response='A', quizId=id))))
+    countB = len(list(ResultLive.objects.filter(response='B', quizId=id)))
+    countC = len(list(ResultLive.objects.filter(response='C', quizId=id)))
+    countD = len(list(ResultLive.objects.filter(response='D', quizId=id)))
+    args={'quiz_id':id,'quizObject':quizInstance,'total':countA+countB+countC+countD}
     return render(request,"quiz/barChart.html",args);
 
 def recordResponse(request,quiz_id):
@@ -34,10 +40,10 @@ def recordResponse(request,quiz_id):
         form=ResponseForm(request.POST)
         if form.is_valid():
             res = form.save(commit=False)
-
             res.quizId=quizDetailsInstance
             res.save()
-            return HttpResponse("You response recorded Successfully")
+            messages.success(request, ('Response submitted Successfully '))
+            return redirect(reverse('quiz:show_response', args=[quiz_id]))
         else:
             args = {'form': form}
             return render(request, 'quiz/submit_response.html', args)
@@ -59,7 +65,8 @@ def createQuiz(request):
             quiz = form.save(commit=False)
             quiz.user = request.user
             quiz.save()
-            return HttpResponse("You quiz with id %d is Successfully created."%(quiz.pk))
+            messages.success(request, ('Quiz created Successfully '))
+            return redirect('/quiz/profile/')
         else:
             args = {'form': form}
             return render(request, 'quiz/create_quiz.html', args)
@@ -68,3 +75,7 @@ def createQuiz(request):
         args = {'form': form}
         return render(request, 'quiz/create_quiz.html', args)
 
+def profile(request):
+    QuizInstances=list(QuizDetails.objects.filter(user=request.user))
+    args={'quizObjects': QuizInstances}
+    return render(request,'quiz/profile.html',args)

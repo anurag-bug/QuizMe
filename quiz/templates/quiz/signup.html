@@ -2,13 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Meddon">
+    <title>Sign up | Quizy</title>
 </head>
 <body>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
+<body>
+{% load widget_tweaks %}
+<div class="container">
+<div style="font-family: 'Meddon', serif;font-size: 60px;margin-bottom: 40px;margin-top: 20px;">Quizy</div>
+
+</div>
+<div class="container">
+<div class="row">
+  <div class="col-sm-4">
+        <form method="post" novalidate>
+  {% csrf_token %}
+  {% for hidden_field in form.hidden_fields %}
+    {{ hidden_field }}
+  {% endfor %}
+
+  {% for field in form.visible_fields %}
+    <div class="form-group">
+      {{ field.label_tag }}
+
+      {% render_field field class="form-control" %}
+	{% if field.help_text %}
+    	<div style="color: grey">{{ field.help_text|safe }}</div>
+	{% endif %}
+    </div>
+  {% endfor %}
+
+  <button type="submit" class="btn btn-primary">Sign up</button> 
+
 </form>
+<div style="margin-top: 20px;">
+<strong>If you already have an account</strong>
+<a href="/quiz/login/" class="btn btn-success">Log In</a>
+</div>
+      </div>
+</div>
 </body>
 </html>

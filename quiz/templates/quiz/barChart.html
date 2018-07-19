@@ -8,7 +8,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
-
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Meddon">
     <script>
     function Get()
     {
@@ -41,23 +42,35 @@
   chart.draw(data, options);
   setTimeout(function(){
     drawChart();
-},10000);
+},50000);
 }
 </script>
 </head>
 <body>
 <div class="container">
-    <h2>{{ quizObject.question }}<br></h2>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
     <div class="container">
+    <div style="font-family: 'Meddon', serif;font-size: 30px;margin-bottom: 40px;margin-top: 20px">Quizy</div>
+                <div class="row">
+  <div class="col-sm-6">
+    <h3>{{ quizObject.question }}<br></h3>
+
     <h4><strong>A.    </strong>{{ quizObject.optionA }}<br></h4>
     <h4><strong>B.     </strong> {{ quizObject.optionB }}<br></h4>
     <h4><strong>C.     </strong>{{ quizObject.optionC }}<br></h4>
     <h4><strong>D.     </strong>{{ quizObject.optionD }}<br></h4>
-    </div>
-     <h4><strong>Correct Answer</strong>{{ quizObject.correctOption }}</h4>
 
 
+     <h4><strong>Correct Answer: </strong>{{ quizObject.correctOption }}</h4>
+              </div>
+</div>
 <div id="piechart"></div>
+        <h4>Total Response: {{ total }}<br></h4>
+    </div>
     </div>
 </body>
 </html>
