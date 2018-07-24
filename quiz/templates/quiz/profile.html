@@ -8,7 +8,7 @@
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Meddon">
-    <title>Quizy | Profile</title>
+    <title>QuizMe | Profile</title>
 </head>
     <body>
 
@@ -18,7 +18,7 @@
         <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
     {% endfor %}
 {% endif %}
-<div style="font-family: 'Meddon', serif;font-size: 30px;margin-bottom: 40px;margin-top: 20px">Quizy</div>
+<div style="font-family: 'Meddon', serif;font-size: 30px;margin-bottom: 40px;margin-top: 20px">QuizMe</div>
     <h3>Welcome back! {{ request.user }}</h3>
         <a href="/quiz/create/" class="btn btn-success">Create New Quiz</a>
     <h3>Quizzes Created by you:</h3>
